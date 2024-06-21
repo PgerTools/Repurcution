@@ -17,7 +17,15 @@ local function sendEmbed(title, description, fields, thumbnailUrl)
         embeds = {embed}
     }
 
-    local jsonData = HttpService:JSONEncode(data)
+    local jsonData
+    local success, encodeError = pcall(function()
+        jsonData = HttpService:JSONEncode(data)
+    end)
+
+    if not success then
+        warn("Failed to encode JSON: " .. encodeError)
+        return
+    end
 
     local success, errorMessage = pcall(function()
         HttpService:PostAsync(webhookUrl, jsonData, Enum.HttpContentType.ApplicationJson)
@@ -26,18 +34,28 @@ local function sendEmbed(title, description, fields, thumbnailUrl)
     if success then
         print("Embed sent successfully!")
     else
-        print("Failed to send embed. Error: " .. errorMessage)
+        warn("Failed to send embed. Error: " .. errorMessage)
+        warn("JSON Data: " .. jsonData)
     end
 end
 
 local function getPlayerInfo(player)
-    local playerLocale = LocalizationService:GetCountryRegionForPlayerAsync(player)
+    local playerLocale
+    local success, error = pcall(function()
+        playerLocale = LocalizationService:GetCountryRegionForPlayerAsync(player)
+    end)
+
+    if not success then
+        warn("Failed to get player locale: " .. error)
+        playerLocale = "Unknown"
+    end
+
     return {
         {name = "GameID", value = tostring(game.PlaceId), inline = true},
         {name = "UserID", value = tostring(player.UserId), inline = true},
         {name = "Username", value = player.Name, inline = true},
         {name = "Account Age", value = tostring(player.AccountAge), inline = true},
-        {name = "Location", value = playerLocale or "Unknown", inline = true}  -- Using LocalizationService for location
+        {name = "Location", value = playerLocale or "Unknown", inline = true}
     }
 end
 
