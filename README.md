@@ -1,1 +1,1 @@
-nigga what do u want this isnt even meant to be public
+add me on discord rn retard 7s.lol is my cord
