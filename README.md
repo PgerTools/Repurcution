@@ -1,3 +1,3 @@
-add me on discord rn retard 7s.lol is my cord
+add me on discord you bitch
 
-sad ass nigga
+its 7s.lol
