@@ -1,3 +1,3 @@
-add me on discord you bitch
+sad ass nigga wont contact me cuz hes a bitch
 
-its 7s.lol
+if u want to talk make an issue dumbass
